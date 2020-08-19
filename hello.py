@@ -1,12 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
+# rendering template
+
 @app.route('/')
 def index():
-	return '<h1>Hello World!</h1>'
+	return render_template('index.html')
 
 # Dynamic route to make app respond with personalized message.
 @app.route('/user/<name>')
 def user(name):
-	return f'<h3>Hello { name } !!'
+	return render_template('user.html', name=name)
