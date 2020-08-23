@@ -77,3 +77,8 @@ class User(db.Model):
 
 	def __repr__(self):
 		return '<User %r>' % self.username
+
+# integrating models with python shell
+@app.shell_context_processor
+def make_shelll_context():
+	return dict(db=db, User=User, Role=Role)
