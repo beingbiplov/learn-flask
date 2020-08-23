@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, url_for, redirect
+from flask import Flask, render_template, session, url_for, redirect, flash
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -22,6 +22,9 @@ def index():
 	name = None
 	form = NameForm()
 	if form.validate_on_submit():
+		old_name = session.get('name')
+		if old_name is not None and old_name != form.name.data:
+			flash('Your name is now changed!')
 		session['name'] = form.name.data 
 		return redirect(url_for('index'))
 	return render_template('index.html', form = form, name=session.get('name'))
